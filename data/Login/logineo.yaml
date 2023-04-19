@@ -1,0 +1,140 @@
+# 公共参数
+case_common:
+  allureEpic: 开发平台接口
+  allureFeature: 登录模块
+  allureStory: 登录
+
+login_eo01:
+    host: ${{host()}}
+    url: /eoffice/server/public/api/auth/login
+    method: POST
+    detail: 正常登录
+    headers:
+      Content-Type: application/json
+#      Content-Type: multipart/form-data;
+    # 请求的数据，是 params 还是 json、或者file、data
+    requestType: json
+    # 是否执行，空或者 true 都会执行
+    is_run:
+    data:
+      user_account: 'admin'
+      password: 123456
+      # 是否有依赖业务，为空或者false则表示没有
+    dependence_case: False
+        # 依赖的数据
+    dependence_case_data:
+    assert:
+      # 断言接口状态码
+      errorCode:
+        jsonpath: $.status
+        type: ==
+        value: 1
+        AssertType:
+
+      # 断言接口返回的username
+      username:
+        jsonpath: $.data.current_user.user_id
+        type: ==
+        value: 'admin'
+        AssertType:
+    sql:
+
+login_eo02:
+    host: ${{host()}}
+    url: /eoffice/server/public/api/auth/login
+    method: POST
+    detail: 输入错误的密码
+    headers:
+      Content-Type: application/json
+        #      Content-Type: multipart/form-data;
+        # 请求的数据，是 params 还是 json、或者file、data
+    requestType: json
+    # 是否执行，空或者 true 都会执行
+    is_run:
+    data:
+      user_account: 'admin'
+      password: 12345
+      # 是否有依赖业务，为空或者false则表示没有
+    dependence_case: False
+        # 依赖的数据
+    dependence_case_data:
+    assert:
+      # 断言接口状态码
+      errorCode:
+        jsonpath: $.status
+        type: ==
+        value: 0
+        AssertType:
+      # 断言接口返回的username
+      errorMsg:
+        jsonpath: $.errors[0].message
+        type: ==
+        value: "登录账号或密码不正确"
+        AssertType:
+    sql:
+#
+login_eo03:
+    host: ${{host()}}
+    url: /eoffice/server/public/api/auth/login
+    method: POST
+    detail: 登录密码为空
+    headers:
+      Content-Type: application/json;
+    # 请求的数据，是 params 还是 json、或者file、data
+    requestType: json
+    # 是否执行，空或者 true 都会执行
+    is_run:
+    data:
+      user_account: 'admin'
+      password:
+      # 是否有依赖业务，为空或者false则表示没有
+    dependence_case: False
+        # 依赖的数据
+    dependence_case_data:
+    assert:
+      # 断言接口状态码
+      errorCode:
+        jsonpath: $.status
+        type: ==
+        value: 0
+        AssertType:
+      # 断言接口返回的username
+      errorMsg:
+        jsonpath: $.errors[0].message
+        type: ==
+        value: "登录账号或密码不正确"
+        AssertType:
+    sql:
+
+login_eo04:
+    host: ${{host()}}
+    url: /eoffice/server/public/api/auth/login
+    method: POST
+    detail: 输入不存在的账号
+    headers:
+      Content-Type: application/json;
+    # 请求的数据，是 params 还是 json、或者file、data
+    requestType: json
+    # 是否执行，空或者 true 都会执行
+    is_run:
+    data:
+      user_account: '不存在'
+      password: 123456
+      # 是否有依赖业务，为空或者false则表示没有
+    dependence_case: False
+        # 依赖的数据
+    dependence_case_data:
+    assert:
+      # 断言接口状态码
+      errorCode:
+        jsonpath: $.status
+        type: ==
+        value: 0
+        AssertType:
+      # 断言接口返回的username
+      errorMsg:
+        jsonpath: $.errors[0].message
+        type: ==
+        value: "登录账号或密码不正确"
+        AssertType:
+    sql:
