@@ -5,7 +5,7 @@ env: 金克丝测试环境
 tester_name: 金克丝
 
 # 域名1
-host: http://192.168.31.113:8010
+host: http://eow11.weaver.cn
 # 域名2，支持多个域名配置
 app_host:
 

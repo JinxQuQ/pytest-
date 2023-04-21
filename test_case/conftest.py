@@ -29,7 +29,7 @@ def work_login_init():
     :return:
     """
 
-    url = "http://192.168.31.113:8010/eoffice/server/public/api/auth/login"
+    url = "http://eow11.weaver.cn/eoffice/server/public/api/auth/login"
     data = {
         "username": "admin",
         "password": 123456
